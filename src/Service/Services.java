@@ -39,12 +39,13 @@ public class Services {
                 11. Add a new Section to the Course.
                 12. Remove a Section from the Course.
                 13. Edit the name of the Section.
-                14. Display the Course in the file.\s
+                14. Display the Course in the file.\s 
                 """;
         System.out.println(context);
 
 
         serviceMethods.add(new Section("introduction to Java"), courses.get(0));
+        serviceMethods.remove("introduction to Java", courses.get(0));
         for (var a :
                 courses) {
             System.out.println(a);
