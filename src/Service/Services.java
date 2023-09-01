@@ -44,7 +44,7 @@ public class Services {
         System.out.println(context);
 
 
-        serviceMethods.add(new Section("First Steps"), courses.get(0));
+        serviceMethods.add(new Section("introduction to Java"), courses.get(0));
         for (var a :
                 courses) {
             System.out.println(a);
