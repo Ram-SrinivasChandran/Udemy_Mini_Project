@@ -15,6 +15,8 @@ public class ServiceMethods {
         if(isEqualSection(sections,section)) {
             sections.add(section);
             course.setSections(sections);
+            System.out.println("The Section Added Sucessfully....");
+            System.out.println("Enter 0 for ContextList...");
         }
         else{
             System.out.println("The Section is already Available..");
@@ -28,8 +30,12 @@ public class ServiceMethods {
     public void removeSection(String section, Course course){
         List<Section> sections= course.getSections();
         Section toRemove=find(sections,section);
-        sections.remove(toRemove);
-        course.setSections(sections);
+        if(toRemove!=null){
+            sections.remove(toRemove);
+            course.setSections(sections);
+            System.out.println("The Section Removed Sucessfully....");
+            System.out.println("Enter 0 for ContextList...");
+        }
     }
 
     private boolean isEqualSection(List<Section> sections,Section section){
@@ -48,7 +54,7 @@ public class ServiceMethods {
                 return section;
             }
         }
-        System.out.println("The Section is not there...");
+        System.out.println("The Section is not Available...");
         return null;
     }
 

@@ -136,7 +136,7 @@ public class Services {
                         System.out.println("The Smallest Section(in terms of Duration) has been Displayed Sucessfully....");
                         System.out.println("Enter 0 for ContextList...");
                     }else{
-                        System.out.println("Enter the Correct Option.");
+                        System.out.println("Enter the Correct Option...");
                     }
                 }
                 case 7 -> {
@@ -152,9 +152,55 @@ public class Services {
                     System.out.println("Enter 0 for ContextList...");
                 }
                 case 9 -> {
-
+                    serviceMethods.listSections(courses.get(0));
+                    System.out.println("Enter the Section to add a Lesson : ");
+                    int sectionNumber=scanner.nextInt();
+                    if (sectionNumber <= courses.get(0).getSections().size() && sectionNumber > 0) {
+                        System.out.print("Enter the name of the Lesson : ");
+                        String lessonName=scanner.next();
+                        System.out.print("Enter the Duration of the Lesson(If code give 0 value) : ");
+                        double duration=scanner.nextDouble();
+                        System.out.print("Enter the Type of the Lesson (Code or Video) : ");
+                        String type=scanner.next();
+                        if(type.equalsIgnoreCase("code")||type.equalsIgnoreCase("video")) {
+                            serviceMethods.addLesson(courses.get(0).getSections().get(sectionNumber - 1), lessonName, duration, type);
+                        }else{
+                            System.out.println("Enter Correct Video Type...");
+                        }
+                        System.out.println("The Lesson Added Sucessfully....");
+                        System.out.println("Enter 0 for ContextList...");
+                    } else {
+                        System.out.println("Please enter the Correct Section Number...");
+                    }
                 }
-
+                case 10 -> {
+                    System.out.print("Enter the Section Name : ");
+                    String sectionName=scanner.next();
+                    serviceMethods.addSection(new Section(sectionName),courses.get(0));
+                }
+                case 11 -> {
+                    System.out.print("Enter the Section Name : ");
+                    String sectionName=scanner.next();
+                    serviceMethods.removeSection(sectionName,courses.get(0));
+                }
+                case 12 -> {
+                    serviceMethods.listSections(courses.get(0));
+                    System.out.print("Enter the Section of List : ");
+                    int sectionNumber=scanner.nextInt();
+                    if (sectionNumber <= courses.get(0).getSections().size() && sectionNumber > 0) {
+                        System.out.print("Enter the New Name of the Section : ");
+                        String newSectionName=scanner.next();
+                        serviceMethods.editSectionName(courses.get(0).getSections().get(sectionNumber-1),newSectionName);
+                        System.out.println("The Name of the Section Changed Sucessfully....");
+                        System.out.println("Enter 0 for ContextList...");
+                    } else {
+                        System.out.println("Please enter the Correct Section Number...");
+                    }
+                }
+                case 13 -> {
+                    userInput=false;
+                }
+                default -> System.out.println("Please Enter a Context Number...");
             }
         }catch(Exception e){
             System.out.println("Please enter a valid Input....");
