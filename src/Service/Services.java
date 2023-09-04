@@ -191,7 +191,7 @@ public class Services {
                         System.out.print("Enter the New Name of the Section : ");
                         String newSectionName=scanner.next();
                         serviceMethods.editSectionName(courses.get(0).getSections().get(sectionNumber-1),newSectionName);
-                        System.out.println("The Name of the Section Changed Sucessfully....");
+                        System.out.println("The Name of the Section Changed Successfully....");
                         System.out.println("Enter 0 for ContextList...");
                     } else {
                         System.out.println("Please enter the Correct Section Number...");
