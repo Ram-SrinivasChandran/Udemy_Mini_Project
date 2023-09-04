@@ -66,7 +66,11 @@ int sectionNumber=1;
 //        serviceMethods.listLessons(courses.get(0));
 //        serviceMethods.longestSection(courses.get(0),1);
 //        serviceMethods.longestSection(courses.get(0),2);
-        serviceMethods.longestSection(courses.get(0),3);
+//        serviceMethods.longestSection(courses.get(0),3);
+//        serviceMethods.smallestSection(courses.get(0),1);
+//        serviceMethods.smallestSection(courses.get(0),2);
+//        serviceMethods.smallestSection(courses.get(0),3);
+        serviceMethods.lessonNameByKey(courses.get(0),"hello world");
         for (var a :
                 courses) {
             System.out.println(a);

@@ -4,6 +4,7 @@ import Entity.Course;
 import Entity.Lesson;
 import Entity.Section;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceMethods {
@@ -111,9 +112,9 @@ public class ServiceMethods {
 
     public void longestSection(Course course,int option){
         List<Section> sections= course.getSections();
+        String longestSectionName = "";
         switch (option) {
             case 1 -> {
-                String longestSectionName = " ";
                 for (var section :
                         sections) {
                     double lessonTotalDuration = 0;
@@ -132,7 +133,6 @@ public class ServiceMethods {
             }
             case 2 -> {
                 int lessonCount = 0;
-                String longestSectionName = "";
                 for (var section :
                         sections) {
                     if (lessonCount < totalLesson(section)) {
@@ -144,7 +144,6 @@ public class ServiceMethods {
             }
             case 3 -> {
                 long codingLessonCountInSection = 0;
-                String longestSectionName = "";
                 for (var section :
                         sections) {
                     long codingLessonCount = section.getLessons()
@@ -159,8 +158,83 @@ public class ServiceMethods {
 
                 System.out.println("Longest Section in terms of Coding Section Count : "+longestSectionName);
             }
-            default -> System.out.println("Enter the Valid Number...");
+            default -> System.out.println("Enter the Valid Option...");
         }
     }
+    public void smallestSection(Course course,int option){
+        List<Section> sections= course.getSections();
+        String smallestSectionName = "";
+        switch (option) {
+            case 1 -> {
+                double lessonTotalDuration = 9999;
+                for (var section :
+                        sections) {
+                    double durations = 0;
+                    List<Lesson> lessons = section.getLessons();
+                    for (var lesson :
+                            lessons) {
+                        durations += lesson.duration();
+                    }
+                    if (lessonTotalDuration > durations) {
+                        lessonTotalDuration = durations;
+                        smallestSectionName = section.getName();
+                        System.out.println(smallestSectionName+" "+lessonTotalDuration);
+                    }
+                }
+            }
+            case 2 -> {
+                int lessonCount = 9999;
+                for (var section :
+                        sections) {
+                    if (lessonCount > totalLesson(section)) {
+                        lessonCount = totalLesson(section);
+                        smallestSectionName = section.getName();
+                    }
+                }
+                System.out.println("Smallest Section in terms of Lesson Count : " + smallestSectionName);
+            }
+            case 3 -> {
+                long codingLessonCountInSection = 9999;
+                for (var section :
+                        sections) {
+                    long codingLessonCount = section.getLessons()
+                            .stream()
+                            .filter(lesson -> lesson.type().equalsIgnoreCase("Code"))
+                            .count();
+                    if(codingLessonCountInSection > codingLessonCount){
+                        codingLessonCountInSection=codingLessonCount;
+                        smallestSectionName=section.getName();
+                    }
+                }
+
+                System.out.println("Smallest Section in terms of Coding Section Count : "+smallestSectionName);
+            }
+            default -> System.out.println("Enter the Valid Option...");
+        }
+    }
+    public boolean isContains(String lessonName,String keyword){
+        if(lessonName.contains(keyword)){
+            return true;
+        }
+        return false;
+    }
+
+    public void lessonNameByKey(Course course,String keyword){
+        List<Section> sections = course.getSections();
+        List<String> lessonNames=new ArrayList<>();
+        sections.forEach(section -> {
+            List<Lesson> lessons = section.getLessons();
+            lessons.forEach(lesson -> {
+                String name = lesson.name();
+                String lowerCaseKeyword = keyword.toLowerCase();
+                String lowerCaseName = name.toLowerCase();
+                if(isContains(lowerCaseName,lowerCaseKeyword)){
+                    lessonNames.add(lesson.name());
+                }
+            });
+        });
+        System.out.println(lessonNames);
+    }
+
 }
 
