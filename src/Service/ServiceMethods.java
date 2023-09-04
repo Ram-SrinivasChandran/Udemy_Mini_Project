@@ -6,6 +6,7 @@ import Entity.Section;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ServiceMethods {
 
@@ -105,7 +106,7 @@ public class ServiceMethods {
                     lessonName=lesson.name();
                 }
             }
-            System.out.println("Longest Lesson in the Section : "+lessonName);
+            System.out.println("Longest Lesson in this Section : "+lessonName);
             sectionCount++;
         }
     }
@@ -222,6 +223,7 @@ public class ServiceMethods {
     public void lessonNameByKey(Course course,String keyword){
         List<Section> sections = course.getSections();
         List<String> lessonNames=new ArrayList<>();
+        AtomicInteger count= new AtomicInteger(1);
         sections.forEach(section -> {
             List<Lesson> lessons = section.getLessons();
             lessons.forEach(lesson -> {
@@ -229,11 +231,15 @@ public class ServiceMethods {
                 String lowerCaseKeyword = keyword.toLowerCase();
                 String lowerCaseName = name.toLowerCase();
                 if(isContains(lowerCaseName,lowerCaseKeyword)){
+                    System.out.println(count+". "+lesson.name()+" (Section : "+section.getName()+")");
+                    count.getAndIncrement();
                     lessonNames.add(lesson.name());
                 }
             });
         });
-        System.out.println(lessonNames);
+        if(lessonNames.isEmpty()){
+            System.out.println("There is no Matching Lesson to the given Keyword...");
+        }
     }
 
 }

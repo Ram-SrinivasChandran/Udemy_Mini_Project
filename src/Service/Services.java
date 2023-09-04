@@ -6,10 +6,12 @@ import Entity.Section;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Services {
     List<Course> courses = new ArrayList<>();
     ServiceMethods serviceMethods = new ServiceMethods();
+    Scanner scanner= new Scanner(System.in).useDelimiter("\n");
 
     public void courseAdd() {
         Lesson lesson = new Lesson("Introduction", 13.0, "Video");
@@ -31,18 +33,18 @@ public class Services {
         List<Section> sectionList = new ArrayList<>();
         sectionList.add(section);
         sectionList.add(section1);
-        courses.add(new Course("Tim", "05/08/2022", 20.5, 4.5, 1, sectionList));
+        courses.add(new Course("Tim", "05/08/2022", 20.5, 4.5, 1, sectionList,"Java Programming Masterclass for Software Developers"));
     }
 
     public void service() {
+        System.out.println("Welcome to the Udemy course");
         String context = """
-                Welcome to the Udemy course
                 1.  List of Sections.
                 2.  List of Lessons in a Section.
                 3.  View Total number of Sections.
                 4.  View the Total number of Lessons in a Section.
-                5.  Display the longest Section(in terms of Duration/in terms of Lessons Count/in terms of most Coding Lessons).
-                6.  Display the smallest Section(in terms of Duration/in terms of Lessons Count/in terms of most Coding Lessons).
+                5.  Display the longest Section.
+                6.  Display the smallest Section.
                 7.  Display the Lesson(with the Key).
                 8.  Display the longest Lesson in a Section(in terms of Duration).
                 9.  Add a new Lesson to a Section.
@@ -51,9 +53,7 @@ public class Services {
                 12. Edit the name of the Section.
                 13. Display the Course in the file.\s 
                 """;
-        System.out.println(context);
-
-int sectionNumber=1;
+//        int sectionNumber=1;
 //        serviceMethods.addSection(new Section("introduction to Java"), courses.get(0));
 //        serviceMethods.removeSection("introduction to Java", courses.get(0));
 //        serviceMethods.listSections(courses.get(0));
@@ -70,11 +70,97 @@ int sectionNumber=1;
 //        serviceMethods.smallestSection(courses.get(0),1);
 //        serviceMethods.smallestSection(courses.get(0),2);
 //        serviceMethods.smallestSection(courses.get(0),3);
-        serviceMethods.lessonNameByKey(courses.get(0),"hello world");
-        for (var a :
-                courses) {
-            System.out.println(a);
+//        serviceMethods.lessonNameByKey(courses.get(0),"hello world");
+//        for (var a :
+//                courses) {
+//            System.out.println(a);
+//        }
+//        System.out.println(courses.size());
+        String listOfTypes= """
+                            1. In Terms of Durations.
+                            2. In terms ofLesson Count.
+                            3. In Terms of Most Coding Lessons.""";
+        System.out.println(context);
+        boolean userInput=true;
+        while(userInput){
+        System.out.print("Enter the service according to the above mentioned context List(1-13) : ");
+        try{
+            int input =scanner.nextInt();
+            switch (input) {
+                case 0 -> System.out.println(context);
+                case 1 -> {
+                    serviceMethods.listSections(courses.get(0));
+                    System.out.println("The list of Sections has been Displayed Sucessfully....");
+                    System.out.println("Enter 0 for ContextList...");
+                }
+                case 2 -> {
+                    serviceMethods.listLessons(courses.get(0));
+                    System.out.println("The list of Lessons has been Displayed Sucessfully....");
+                    System.out.println("Enter 0 for ContextList...");
+                }
+                case 3 -> {
+                    System.out.println("Total Number of Sections: "+serviceMethods.totalSection(courses.get(0)));
+                    System.out.println("The total Number of Sections has been Displayed Sucessfully....");
+                    System.out.println("Enter 0 for ContextList...");
+                }
+                case 4 -> {
+                    serviceMethods.listSections(courses.get(0));
+                    System.out.print("Enter the Section of List : ");
+                        int sectionNumber=scanner.nextInt();
+                        if (sectionNumber <= courses.get(0).getSections().size() && sectionNumber > 0) {
+                            System.out.println("Total Number of Lessons in the Section : " + serviceMethods.totalLesson(courses.get(0).getSections().get(sectionNumber - 1)));
+                        } else {
+                            System.out.println("Please enter the Correct Section Number...");
+                        }
+                        System.out.println("The total Number of Lessons has been Displayed Sucessfully....");
+                        System.out.println("Enter 0 for ContextList...");
+                }
+                case 5 -> {
+                    System.out.println(listOfTypes);
+                    System.out.println("Enter the Function in Above Three : ");
+                    int typeInput = scanner.nextInt();
+                    if(typeInput>0 && typeInput<=3) {
+                        serviceMethods.longestSection(courses.get(0), typeInput);
+                        System.out.println("The Longest Section(in terms of Duration) has been Displayed Sucessfully....");
+                        System.out.println("Enter 0 for ContextList...");
+                    }else{
+                        System.out.println("Enter the Correct Option.");
+                    }
+                }
+                case 6 -> {
+                    System.out.println(listOfTypes);
+                    System.out.println("Enter the Function in Above Three : ");
+                    int typeInput = scanner.nextInt();
+                    if(typeInput>0 && typeInput<=3) {
+                        serviceMethods.smallestSection(courses.get(0), typeInput);
+                        System.out.println("The Smallest Section(in terms of Duration) has been Displayed Sucessfully....");
+                        System.out.println("Enter 0 for ContextList...");
+                    }else{
+                        System.out.println("Enter the Correct Option.");
+                    }
+                }
+                case 7 -> {
+                    System.out.print("Enter a Keyword to Search a Lesson (Single Word) : ");
+                    String keyWord=scanner.next();
+                    serviceMethods.lessonNameByKey(courses.get(0),keyWord);
+                    System.out.println("The Process Completed Sucessfully....");
+                    System.out.println("Enter 0 for ContextList...");
+                }
+                case 8-> {
+                    serviceMethods.longestLessons(courses.get(0));
+                    System.out.println("The Process Completed Sucessfully....");
+                    System.out.println("Enter 0 for ContextList...");
+                }
+                case 9 -> {
+
+                }
+
+            }
+        }catch(Exception e){
+            System.out.println("Please enter a valid Input....");
+            scanner.next();
+            System.out.println("Enter 0 for ContextList...");
         }
-        System.out.println(courses.size());
+        }
     }
 }
