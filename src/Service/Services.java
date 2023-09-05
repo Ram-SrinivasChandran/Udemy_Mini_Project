@@ -14,12 +14,12 @@ public class Services {
     Scanner scanner= new Scanner(System.in).useDelimiter("\n");
 
     public void courseAdd() {
-        Lesson lesson = new Lesson("Introduction", 13.0, "Video");
-        Lesson lesson1 = new Lesson("Hello World", 0, "Code");
+        Lesson lesson = new Lesson("Introduction", 12.0, "Video");
+//        Lesson lesson1 = new Lesson("Hello World", 0, "Code");
         Lesson lesson2 = new Lesson("Introduction to variables", 12.0, "Video");
         List<Lesson> lessonList=new ArrayList<>();
         lessonList.add(lesson);
-        lessonList.add(lesson1);
+//        lessonList.add(lesson1);
         lessonList.add(lesson2);
         Section section = new Section("Introduction to Java", lessonList);
         Lesson lesson3 = new Lesson("Introduction", 25.0, "Video");
@@ -122,7 +122,7 @@ public class Services {
                 case 4 -> {
                     if(courses.get(0).getSections().size()!=0){
                         serviceMethods.listSections(courses.get(0));
-                        System.out.print("Enter the Section Number of List : ");
+                        System.out.print("Enter the Section Number : ");
                         int sectionNumber=scanner.nextInt();
                         if (sectionNumber <= courses.get(0).getSections().size() && sectionNumber > 0) {
                             System.out.println("Total Number of Lessons in the Section : " + serviceMethods.totalLesson(courses.get(0).getSections().get(sectionNumber - 1)));
@@ -227,10 +227,14 @@ public class Services {
                         serviceMethods.listSections(courses.get(0));
                         System.out.print("Enter the Section Number to Remove : ");
                         int sectionNumber=scanner.nextInt();
-                        serviceMethods.removeSection(courses.get(0).getSections().get(sectionNumber-1),courses.get(0));
+                        if (sectionNumber <= courses.get(0).getSections().size() && sectionNumber > 0) {
+                            serviceMethods.removeSection(courses.get(0).getSections().get(sectionNumber - 1), courses.get(0));
+                        }else {
+                            System.out.println("Please Enter the Valid Section Number...");
+                        }
                     }
                     else {
-                        System.out.println("The Course is Empty...");
+                        System.out.println("There is no Section to Remove...");
                     }
                 }
                 case 12 -> {

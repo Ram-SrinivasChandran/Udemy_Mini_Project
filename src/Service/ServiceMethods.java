@@ -28,10 +28,10 @@ public class ServiceMethods {
     }
     public void removeSection(Section section,Course course){
             List<Section> sections = course.getSections();
-            sections.remove(section);
-            course.setSections(sections);
-            System.out.println("The Section Removed Sucessfully....");
-            System.out.println("Enter 0 for ContextList...");
+                sections.remove(section);
+                course.setSections(sections);
+                System.out.println("The Section Removed Sucessfully....");
+                System.out.println("Enter 0 for ContextList...");
     }
 
     private boolean isEqualSection(List<Section> sections,Section section){
@@ -132,9 +132,10 @@ public class ServiceMethods {
                         sectionNames.add(longestSectionName);
                     }
                 }
+                System.out.println("Longest Section in terms of Duration is : ");
                 for (var sectionName:
                      sectionNames) {
-                    System.out.println("Longest Section in terms of Duration is : " + sectionName+" ("+lessonTotalDuration+")");
+                    System.out.println(sectionName+" ("+lessonTotalDuration+")  ");
                 }
             }
             case 2 -> {
@@ -152,9 +153,10 @@ public class ServiceMethods {
                         sectionNames.add(longestSectionName);
                     }
                 }
+                System.out.println("Longest Section in terms of Lesson Count is : ");
                 for (var sectionName:
                         sectionNames) {
-                    System.out.println("Longest Section in terms of Lesson Count is : " + sectionName+" ("+lessonCount+")");
+                    System.out.println(sectionName+" ("+lessonCount+")  ");
                 }
             }
             case 3 -> {
@@ -176,9 +178,10 @@ public class ServiceMethods {
                         sectionNames.add(longestSectionName);
                     }
                 }
+                System.out.println("Longest Section in terms of Coding Lesson Count is : ");
                 for (var sectionName:
                         sectionNames) {
-                    System.out.println("Longest Section in terms of Coding Lesson Count is : " + sectionName+" ("+codingLessonCountInSection+")");
+                    System.out.println(sectionName+" ("+codingLessonCountInSection+")  ");
                 }
             }
             default -> System.out.println("Enter the Valid Option...");
@@ -210,9 +213,10 @@ public class ServiceMethods {
                         sectionNames.add(smallestSectionName);
                     }
                 }
+                System.out.println("Smallest Section in terms of Duration is : ");
                 for (var sectionName:
                         sectionNames) {
-                    System.out.println("Smallest Section in terms of Duration is : " + sectionName+" ("+lessonTotalDuration+")");
+                    System.out.println(sectionName+" ("+lessonTotalDuration+")  ");
                 }
             }
             case 2 -> {
@@ -230,9 +234,10 @@ public class ServiceMethods {
                         sectionNames.add(smallestSectionName);
                     }
                 }
+                System.out.println("Smallest Section in terms of Lesson Count is : ");
                 for (var sectionName:
                         sectionNames) {
-                    System.out.println("Smallest Section in terms of Lesson Count is : " + sectionName+" ("+lessonCount+")");
+                    System.out.println(sectionName+" ("+lessonCount+")  ");
                 }
             }
             case 3 -> {
@@ -254,9 +259,10 @@ public class ServiceMethods {
                         sectionNames.add(smallestSectionName);
                     }
                 }
+                System.out.println("Smallest Section in terms of Coding Lesson Count is : ");
                 for (var sectionName:
                         sectionNames) {
-                    System.out.println("Smallest Section in terms of Coding Lesson Count is : " + sectionName+" ("+codingLessonCountInSection+")");
+                    System.out.println(sectionName+" ("+codingLessonCountInSection+")  ");
                 }
             }
             default -> System.out.println("Enter the Valid Option...");
@@ -292,4 +298,3 @@ public class ServiceMethods {
     }
 
 }
-
