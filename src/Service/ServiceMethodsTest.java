@@ -3,7 +3,6 @@ package Service;
 import Entity.Course;
 import Entity.Lesson;
 import Entity.Section;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -13,13 +12,6 @@ import java.util.List;
 class ServiceMethodsTest {
     List<Course> courses = new ArrayList<>();
     ServiceMethods serviceMethods = new ServiceMethods();
-
-    @Before
-    void setup() {
-        List<Section> sectionList = null;
-        Course course1 = new Course("Tim", "05/08/2022", 20.5, 4.5, 1, sectionList, "Java Programming Masterclass for Software Developers");
-        courses.add(course1);
-    }
 
     @Test
     void addSection() {
@@ -112,8 +104,4 @@ class ServiceMethodsTest {
         Assertions.assertTrue(true);
     }
 
-    @Test
-    void lessonNameByKey() {
-        
-    }
 }
