@@ -15,27 +15,23 @@ public class ServiceMethods {
         if(isEqualSection(sections,section)) {
             sections.add(section);
             course.setSections(sections);
-            System.out.println("The Section Added Sucessfully....");
+            System.out.println("The Section Added Successfully to the course "+course.getCourseName());
             System.out.println("Enter 0 for ContextList...");
         }
         else{
             System.out.println("The Section is already Available..");
         }
-
     }
 
     public void addLesson(Section section,String lessonName,double lessonDuration,String lessonType){
         section.getLessons().add(new Lesson(lessonName,lessonDuration,lessonType));
     }
-    public void removeSection(String section, Course course){
-        List<Section> sections= course.getSections();
-        Section toRemove=find(sections,section);
-        if(toRemove!=null){
-            sections.remove(toRemove);
+    public void removeSection(Section section,Course course){
+            List<Section> sections = course.getSections();
+            sections.remove(section);
             course.setSections(sections);
             System.out.println("The Section Removed Sucessfully....");
             System.out.println("Enter 0 for ContextList...");
-        }
     }
 
     private boolean isEqualSection(List<Section> sections,Section section){
@@ -47,17 +43,6 @@ public class ServiceMethods {
         }
         return true;
     }
-    private Section find(List<Section> sections,String sectionName){
-        for (Section section : sections) {
-            if (sectionName
-                    .equalsIgnoreCase(section.getName())) {
-                return section;
-            }
-        }
-        System.out.println("The Section is not Available...");
-        return null;
-    }
-
     public void listSections(Course course){
         List<Section> sections= course.getSections();
         var sectionCount=1;
@@ -78,6 +63,10 @@ public class ServiceMethods {
             for (var lesson:
                  lessons) {
                 System.out.println("     Lesson "+lessonCount+" : "+lesson.name());
+                System.out.println("          Lesson Type     : "+lesson.type());
+                if(lesson.type().equalsIgnoreCase("Video")) {
+                    System.out.println("          Lesson Duration : " + lesson.duration());
+                }
                 lessonCount++;
             }
             sectionCount++;
@@ -112,19 +101,20 @@ public class ServiceMethods {
                     lessonName=lesson.name();
                 }
             }
-            System.out.println("Longest Lesson in this Section : "+lessonName);
+            System.out.println("Longest Lesson in this Section : "+lessonName+" ("+lessonDuration+") ");
             sectionCount++;
         }
     }
 
     public void longestSection(Course course,int option){
         List<Section> sections= course.getSections();
+        List<String> sectionNames=new ArrayList<>();
         String longestSectionName = "";
         switch (option) {
             case 1 -> {
+                double lessonTotalDuration = 0;
                 for (var section :
                         sections) {
-                    double lessonTotalDuration = 0;
                     double durations = 0;
                     List<Lesson> lessons = section.getLessons();
                     for (var lesson :
@@ -134,9 +124,18 @@ public class ServiceMethods {
                     if (lessonTotalDuration < durations) {
                         lessonTotalDuration = durations;
                         longestSectionName = section.getName();
+                        sectionNames.clear();
+                        sectionNames.add(longestSectionName);
+                    } else if (lessonTotalDuration==durations) {
+                        lessonTotalDuration = durations;
+                        longestSectionName = section.getName();
+                        sectionNames.add(longestSectionName);
                     }
                 }
-                System.out.println("Longest Section in terms of Duration is : " + longestSectionName);
+                for (var sectionName:
+                     sectionNames) {
+                    System.out.println("Longest Section in terms of Duration is : " + sectionName+" ("+lessonTotalDuration+")");
+                }
             }
             case 2 -> {
                 int lessonCount = 0;
@@ -145,9 +144,18 @@ public class ServiceMethods {
                     if (lessonCount < totalLesson(section)) {
                         lessonCount = totalLesson(section);
                         longestSectionName = section.getName();
+                        sectionNames.clear();
+                        sectionNames.add(longestSectionName);
+                    } else if (lessonCount==totalLesson(section)) {
+                        lessonCount = totalLesson(section);
+                        longestSectionName = section.getName();
+                        sectionNames.add(longestSectionName);
                     }
                 }
-                System.out.println("Longest Section in terms of Lesson Count : " + longestSectionName);
+                for (var sectionName:
+                        sectionNames) {
+                    System.out.println("Longest Section in terms of Lesson Count is : " + sectionName+" ("+lessonCount+")");
+                }
             }
             case 3 -> {
                 long codingLessonCountInSection = 0;
@@ -160,16 +168,25 @@ public class ServiceMethods {
                     if(codingLessonCountInSection<codingLessonCount){
                         codingLessonCountInSection=codingLessonCount;
                         longestSectionName=section.getName();
+                        sectionNames.clear();
+                        sectionNames.add(longestSectionName);
+                    }else if(codingLessonCountInSection==codingLessonCount){
+                        codingLessonCountInSection=codingLessonCount;
+                        longestSectionName=section.getName();
+                        sectionNames.add(longestSectionName);
                     }
                 }
-
-                System.out.println("Longest Section in terms of Coding Section Count : "+longestSectionName);
+                for (var sectionName:
+                        sectionNames) {
+                    System.out.println("Longest Section in terms of Coding Lesson Count is : " + sectionName+" ("+codingLessonCountInSection+")");
+                }
             }
             default -> System.out.println("Enter the Valid Option...");
         }
     }
     public void smallestSection(Course course,int option){
         List<Section> sections= course.getSections();
+        List<String> sectionNames=new ArrayList<>();
         String smallestSectionName = "";
         switch (option) {
             case 1 -> {
@@ -185,8 +202,17 @@ public class ServiceMethods {
                     if (lessonTotalDuration > durations) {
                         lessonTotalDuration = durations;
                         smallestSectionName = section.getName();
-                        System.out.println(smallestSectionName+" "+lessonTotalDuration);
+                        sectionNames.clear();
+                        sectionNames.add(smallestSectionName);
+                    } else if (lessonTotalDuration==durations) {
+                        lessonTotalDuration = durations;
+                        smallestSectionName = section.getName();
+                        sectionNames.add(smallestSectionName);
                     }
+                }
+                for (var sectionName:
+                        sectionNames) {
+                    System.out.println("Smallest Section in terms of Duration is : " + sectionName+" ("+lessonTotalDuration+")");
                 }
             }
             case 2 -> {
@@ -196,9 +222,18 @@ public class ServiceMethods {
                     if (lessonCount > totalLesson(section)) {
                         lessonCount = totalLesson(section);
                         smallestSectionName = section.getName();
+                        sectionNames.clear();
+                        sectionNames.add(smallestSectionName);
+                    } else if (lessonCount==totalLesson(section)) {
+                        lessonCount = totalLesson(section);
+                        smallestSectionName = section.getName();
+                        sectionNames.add(smallestSectionName);
                     }
                 }
-                System.out.println("Smallest Section in terms of Lesson Count : " + smallestSectionName);
+                for (var sectionName:
+                        sectionNames) {
+                    System.out.println("Smallest Section in terms of Lesson Count is : " + sectionName+" ("+lessonCount+")");
+                }
             }
             case 3 -> {
                 long codingLessonCountInSection = 9999;
@@ -211,10 +246,18 @@ public class ServiceMethods {
                     if(codingLessonCountInSection > codingLessonCount){
                         codingLessonCountInSection=codingLessonCount;
                         smallestSectionName=section.getName();
+                        sectionNames.clear();
+                        sectionNames.add(smallestSectionName);
+                    }else if(codingLessonCountInSection==codingLessonCount){
+                        codingLessonCountInSection=codingLessonCount;
+                        smallestSectionName=section.getName();
+                        sectionNames.add(smallestSectionName);
                     }
                 }
-
-                System.out.println("Smallest Section in terms of Coding Section Count : "+smallestSectionName);
+                for (var sectionName:
+                        sectionNames) {
+                    System.out.println("Smallest Section in terms of Coding Lesson Count is : " + sectionName+" ("+codingLessonCountInSection+")");
+                }
             }
             default -> System.out.println("Enter the Valid Option...");
         }

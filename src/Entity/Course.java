@@ -32,6 +32,10 @@ public class Course {
         this.sections = sections;
     }
 
+    public String getCourseName() {
+        return courseName;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
