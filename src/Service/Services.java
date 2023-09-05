@@ -91,7 +91,7 @@ public class Services {
                 case 1 -> {
                     if(courses.get(0).getSections().size()!=0){
                         serviceMethods.listSections(courses.get(0));
-                        System.out.println("The list of Sections has been Displayed Sucessfully....");
+                        System.out.println("The list of Sections has been Displayed Successfully....");
                         System.out.println("Enter 0 for ContextList...");
                     }
                     else{
@@ -101,7 +101,7 @@ public class Services {
                 case 2 -> {
                     if(courses.get(0).getSections().size()!=0){
                         serviceMethods.listLessons(courses.get(0));
-                        System.out.println("The list of Lessons has been Displayed Sucessfully....");
+                        System.out.println("The list of Lessons has been Displayed Successfully....");
                         System.out.println("Enter 0 for ContextList...");
                     }
                     else{
@@ -112,7 +112,7 @@ public class Services {
                 case 3 -> {
                     if(courses.get(0).getSections().size()!=0){
                         System.out.println("Total Number of Sections: "+serviceMethods.totalSection(courses.get(0)));
-                        System.out.println("The total Number of Sections has been Displayed Sucessfully....");
+                        System.out.println("The total Number of Sections has been Displayed Successfully....");
                         System.out.println("Enter 0 for ContextList...");
                     }
                     else{
@@ -129,7 +129,7 @@ public class Services {
                         } else {
                             System.out.println("Please enter the Correct Section Number...");
                         }
-                        System.out.println("The total Number of Lessons has been Displayed Sucessfully....");
+                        System.out.println("The total Number of Lessons has been Displayed Successfully....");
                         System.out.println("Enter 0 for ContextList...");
                     }
                     else{
@@ -143,7 +143,7 @@ public class Services {
                         int typeInput = scanner.nextInt();
                         if(typeInput>0 && typeInput<=3) {
                             serviceMethods.longestSection(courses.get(0), typeInput);
-                            System.out.println("The Longest Section(in terms of Duration) has been Displayed Sucessfully....");
+                            System.out.println("The Longest Section(in terms of Duration) has been Displayed Successfully....");
                             System.out.println("Enter 0 for ContextList...");
                         }else{
                             System.out.println("Enter the Correct Option.");
@@ -160,7 +160,7 @@ public class Services {
                         int typeInput = scanner.nextInt();
                         if(typeInput>0 && typeInput<=3) {
                             serviceMethods.smallestSection(courses.get(0), typeInput);
-                            System.out.println("The Smallest Section(in terms of Duration) has been Displayed Sucessfully....");
+                            System.out.println("The Smallest Section(in terms of Duration) has been Displayed Successfully....");
                             System.out.println("Enter 0 for ContextList...");
                         }else{
                             System.out.println("Enter the Correct Option...");
@@ -175,7 +175,7 @@ public class Services {
                         System.out.print("Enter a Keyword to Search a Lesson (Single Word) : ");
                         String keyWord=scanner.next();
                         serviceMethods.lessonNameByKey(courses.get(0),keyWord);
-                        System.out.println("The Process Completed Sucessfully....");
+                        System.out.println("The Process Completed Successfully....");
                         System.out.println("Enter 0 for ContextList...");
                     }
                     else{
@@ -185,7 +185,7 @@ public class Services {
                 case 8-> {
                     if(courses.get(0).getSections().size()!=0){
                         serviceMethods.longestLessons(courses.get(0));
-                        System.out.println("The Process Completed Sucessfully....");
+                        System.out.println("The Process Completed Successfully....");
                         System.out.println("Enter 0 for ContextList...");
                     }
                     else{
@@ -208,11 +208,11 @@ public class Services {
                                 duration=scanner.nextDouble();
                             }
                             serviceMethods.addLesson(courses.get(0).getSections().get(sectionNumber - 1), lessonName, duration, type);
+                            System.out.println("The Lesson Added Successfully....");
+                            System.out.println("Enter 0 for ContextList...");
                         }else{
                             System.out.println("Enter Correct Video Type...");
                         }
-                        System.out.println("The Lesson Added Sucessfully....");
-                        System.out.println("Enter 0 for ContextList...");
                     } else {
                         System.out.println("Please enter the Correct Section Number...");
                     }
