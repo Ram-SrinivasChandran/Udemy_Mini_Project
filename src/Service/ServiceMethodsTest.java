@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class ServiceMethodsTest {
-    List<Course> courses = new ArrayList<>();
+
     ServiceMethods serviceMethods = new ServiceMethods();
 
     @Test
@@ -100,8 +100,7 @@ class ServiceMethodsTest {
         //given
         Lesson lesson=new Lesson("Introduction",12.00,"Code");
         //when
-        serviceMethods.isContains(lesson.name(),"intro");
-        Assertions.assertTrue(true);
+        boolean contains = serviceMethods.isContains(lesson.name(), "intro");
+        Assertions.assertTrue(contains);
     }
-
 }

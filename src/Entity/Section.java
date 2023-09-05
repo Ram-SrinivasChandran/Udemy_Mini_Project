@@ -3,6 +3,7 @@ package Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Section{
     private String name;
     private List<Lesson> lessons=new ArrayList<>();

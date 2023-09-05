@@ -90,6 +90,7 @@ public class ServiceMethods {
         section.setName(newSectionName);
     }
 
+
     public void longestLessons(Course course) {
         List<Section> sections = course.getSections();
         var sectionCount = 1;
@@ -110,6 +111,7 @@ public class ServiceMethods {
             sectionCount++;
         }
     }
+
 
     public void longestSection(Course course, int option) {
         List<Section> sections = course.getSections();
@@ -178,7 +180,6 @@ public class ServiceMethods {
                         sectionNames.clear();
                         sectionNames.add(longestSectionName);
                     } else if (codingLessonCountInSection == codingLessonCount) {
-                        codingLessonCountInSection = codingLessonCount;
                         longestSectionName = section.getName();
                         sectionNames.add(longestSectionName);
                     }
@@ -196,10 +197,10 @@ public class ServiceMethods {
     public void smallestSection(Course course, int option) {
         List<Section> sections = course.getSections();
         List<String> sectionNames = new ArrayList<>();
-        String smallestSectionName = "";
+      //  String smallestSectionName = "";
         switch (option) {
             case 1 -> {
-                double lessonTotalDuration = 9999;
+                double lessonTotalDuration = Integer.MAX_VALUE;
                 for (var section :
                         sections) {
                     double durations = 0;
@@ -210,13 +211,10 @@ public class ServiceMethods {
                     }
                     if (lessonTotalDuration > durations) {
                         lessonTotalDuration = durations;
-                        smallestSectionName = section.getName();
                         sectionNames.clear();
-                        sectionNames.add(smallestSectionName);
+                        sectionNames.add(section.getName());
                     } else if (lessonTotalDuration == durations) {
-                        lessonTotalDuration = durations;
-                        smallestSectionName = section.getName();
-                        sectionNames.add(smallestSectionName);
+                        sectionNames.add(section.getName());
                     }
                 }
                 System.out.println("Smallest Section in terms of Duration is : ");
@@ -226,18 +224,16 @@ public class ServiceMethods {
                 }
             }
             case 2 -> {
-                int lessonCount = 9999;
+                int lessonCount = Integer.MAX_VALUE;
                 for (var section :
                         sections) {
                     if (lessonCount > totalLesson(section)) {
                         lessonCount = totalLesson(section);
-                        smallestSectionName = section.getName();
                         sectionNames.clear();
-                        sectionNames.add(smallestSectionName);
+                        sectionNames.add(section.getName());
                     } else if (lessonCount == totalLesson(section)) {
                         lessonCount = totalLesson(section);
-                        smallestSectionName = section.getName();
-                        sectionNames.add(smallestSectionName);
+                        sectionNames.add(section.getName());
                     }
                 }
                 System.out.println("Smallest Section in terms of Lesson Count is : ");
@@ -247,7 +243,7 @@ public class ServiceMethods {
                 }
             }
             case 3 -> {
-                long codingLessonCountInSection = 9999;
+                long codingLessonCountInSection = Integer.MAX_VALUE;
                 for (var section :
                         sections) {
                     long codingLessonCount = section.getLessons()
@@ -256,13 +252,10 @@ public class ServiceMethods {
                             .count();
                     if (codingLessonCountInSection > codingLessonCount) {
                         codingLessonCountInSection = codingLessonCount;
-                        smallestSectionName = section.getName();
                         sectionNames.clear();
-                        sectionNames.add(smallestSectionName);
-                    } else if (codingLessonCountInSection == codingLessonCount) {
-                        codingLessonCountInSection = codingLessonCount;
-                        smallestSectionName = section.getName();
-                        sectionNames.add(smallestSectionName);
+                        sectionNames.add(section.getName());
+                    } else if (codingLessonCountInSection==codingLessonCount) {
+                        sectionNames.add(section.getName());
                     }
                 }
                 System.out.println("Smallest Section in terms of Coding Lesson Count is : ");
@@ -276,7 +269,9 @@ public class ServiceMethods {
     }
 
     public boolean isContains(String lessonName, String keyword) {
-        return lessonName.contains(keyword);
+        String lowerCaseKeyword = keyword.toLowerCase();
+        String lowerCaseName = lessonName.toLowerCase();
+        return lowerCaseName.contains(lowerCaseKeyword);
     }
 
     public void lessonNameByKey(Course course, String keyword) {
@@ -287,9 +282,7 @@ public class ServiceMethods {
             List<Lesson> lessons = section.getLessons();
             lessons.forEach(lesson -> {
                 String name = lesson.name();
-                String lowerCaseKeyword = keyword.toLowerCase();
-                String lowerCaseName = name.toLowerCase();
-                if (isContains(lowerCaseName, lowerCaseKeyword)) {
+                if (isContains(name, keyword)) {
                     System.out.println(count + ". " + lesson.name() + " (Section : " + section.getName() + ")");
                     count.getAndIncrement();
                     lessonNames.add(lesson.name());
