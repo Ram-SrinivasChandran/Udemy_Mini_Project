@@ -8,7 +8,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.List;
 
-public class Writer {
+public class CourseFileWriter {
     public void write(Course course) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Java_Course.txt"))) {
             List<Section> sections = course.getSections();

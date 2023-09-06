@@ -3,16 +3,16 @@ package Test;
 import Entity.Course;
 import Entity.Lesson;
 import Entity.Section;
-import Service.ServiceMethods;
+import CourseManagementSystem.CourseManagingMethods;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class ServiceMethodsTest {
+class CourseManagingMethodsTest {
 
-    ServiceMethods serviceMethods = new ServiceMethods();
+    CourseManagingMethods serviceMethods = new CourseManagingMethods();
 
     @Test
     void addSection() {

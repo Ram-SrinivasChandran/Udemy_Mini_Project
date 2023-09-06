@@ -1,4 +1,4 @@
-package Service;
+package CourseManagementSystem;
 
 import Entity.Course;
 import Entity.Lesson;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ServiceMethods {
+public class CourseManagingMethods {
 
     public void addSection(Section section, Course course) {
         List<Section> sections = course.getSections();

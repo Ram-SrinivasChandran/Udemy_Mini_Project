@@ -1,9 +1,8 @@
-import Service.Services;
+import CourseManagementSystem.CourseManager;
 
 public class Main {
     public static void main(String[] args) {
-        Services services=new Services();
-        services.courseAdd();
+        CourseManager services=new CourseManager();
         services.service();
         System.out.println("Thanks for Choosing this course...");
     }

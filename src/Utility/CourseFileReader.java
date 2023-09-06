@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.stream.Stream;
 
-public class Reader {
+public class CourseFileReader {
     public void read() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader("Java_Course.txt"));
         Stream<String> lines = bufferedReader.lines();
