@@ -22,9 +22,9 @@ public class Writer {
                 for (var lesson:
                     lessons){
                     if(lesson.type().equalsIgnoreCase("video")){
-                        bufferedWriter.write("\n\t\t-  Lesson "+lessonCount+" - "+lesson.name()+" ("+lesson.duration()+")");
+                        bufferedWriter.write("\n\t\t-->  Lesson "+lessonCount+" - "+lesson.name()+" ("+lesson.duration()+")");
                     }else{
-                        bufferedWriter.write("\n\t\t-  Lesson "+lessonCount+" - "+lesson.name());
+                        bufferedWriter.write("\n\t\t-->  Lesson "+lessonCount+" - "+lesson.name());
                     }
                     lessonCount++;
                 }
