@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Course {
     private String author;
-    private String datePublished;
+    private String publicationDate;
     private double cost;
     private double rating;
     private int id;
@@ -18,7 +18,7 @@ public class Course {
 
     public Course(String author, String datePublished, double cost, double rating, int id,List<Section> sections,String courseName) {
         this.author = author;
-        this.datePublished = datePublished;
+        this.publicationDate = datePublished;
         this.cost = cost;
         this.rating = rating;
         this.id = id;
@@ -45,7 +45,7 @@ public class Course {
         return "Course{" +
                 ", courseName='" + courseName + '\'' +
                 "author='" + author + '\'' +
-                ", datePublished='" + datePublished + '\'' +
+                ", datePublished='" + publicationDate + '\'' +
                 ", cost=" + cost +
                 ", rating=" + rating +
                 ", id=" + id +

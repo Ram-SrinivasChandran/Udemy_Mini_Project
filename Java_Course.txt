@@ -1,9 +1,6 @@
 *  Course - Java Programming Masterclass for Software Developers
-	#  Section 1 - Introduction to Java
-		-->  Lesson 1 - Introduction (12.0)
-		-->  Lesson 2 - Hello World
-		-->  Lesson 3 - Introduction to variables (12.0)
-	#  Section 2 - Java
+	#  Section 1 - intro
 		-->  Lesson 1 - Introduction (25.0)
 		-->  Lesson 2 - Hello World
 		-->  Lesson 3 - Introduction to variables (12.0)
+	#  Section 2 - intro

@@ -16,9 +16,9 @@ import java.util.Scanner;
 
 public class CourseManagement {
     List<Course> courses = new ArrayList<>();
-    CourseManagingServices courseManagingServices = new CourseManagingServices();
-    CourseFileWriter writer = new CourseFileWriter();
-    CourseFileReader reader = new CourseFileReader();
+    CourseManagementServices courseManagementServices = new CourseManagementServices();
+    CourseFileWriter courseFileWriter = new CourseFileWriter();
+    CourseFileReader courseFileReader = new CourseFileReader();
     Scanner scanner = new Scanner(System.in).useDelimiter("\n");
 
     /**
@@ -26,7 +26,7 @@ public class CourseManagement {
      * This method will return a List of Sections
      * @return
      */
-    private List<Section> course(){
+    private List<Section> initializeSampleCourse(){
         Lesson lesson = new Lesson("Introduction", 12.0, "Video");
         Lesson lesson1 = new Lesson("Hello World", 0, "Code");
         Lesson lesson2 = new Lesson("Introduction to variables", 12.0, "Video");
@@ -53,7 +53,8 @@ public class CourseManagement {
      * This Method has Something which displays in the console
      */
     public void service() {
-        courses.add(new Course("Tim", "05/08/2022", 20.5, 4.5, 1, course(), "Java Programming Masterclass for Software Developers"));
+        courses.add(new Course("Tim", "05/08/2022", 20.5, 4.5, 1, initializeSampleCourse(), "Java Programming Masterclass for Software Developers"));
+        Course course=courses.get(0);
         System.out.println("Welcome to the Udemy course");
         String context = """
                 1.  List of Sections.
@@ -70,7 +71,7 @@ public class CourseManagement {
                 12. Edit the name of the Section.
                 13. Display the Course in the file. \s
                 """;
-        String listOfTypes = """
+        String sortingOptions = """
                 1. In Terms of Durations.
                 2. In terms of Lesson Count.
                 3. In Terms of Most Coding Lessons.""";
@@ -83,106 +84,106 @@ public class CourseManagement {
                 switch (input) {
                     case 0 -> System.out.println(context);
                     case 1 -> {
-                        if (!courses.get(0).getSections().isEmpty()) {
-                            courseManagingServices.listSections(courses.get(0));
+                        if (!course.getSections().isEmpty()) {
+                            courseManagementServices.displaySections(course);
                             System.out.println("The list of Sections has been Displayed Successfully....");
-                            System.out.println("Enter 0 for ContextList...");
+                            System.out.println("Enter 0 to return to the main menu...");
                         } else {
                             System.out.println("The Course is Empty...");
                         }
                     }
                     case 2 -> {
-                        if (!courses.get(0).getSections().isEmpty()) {
-                            courseManagingServices.listLessons(courses.get(0));
+                        if (!course.getSections().isEmpty()) {
+                            courseManagementServices.displayLessons(course);
                             System.out.println("The list of Lessons has been Displayed Successfully....");
-                            System.out.println("Enter 0 for ContextList...");
+                            System.out.println("Enter 0 to return to the main menu...");
                         } else {
                             System.out.println("The Course is Empty...");
                         }
 
                     }
                     case 3 -> {
-                        if (!courses.get(0).getSections().isEmpty()) {
-                            System.out.println("Total Number of Sections: " + courseManagingServices.totalSection(courses.get(0)));
+                        if (!course.getSections().isEmpty()) {
+                            System.out.println("Total Number of Sections: " + courseManagementServices.getTotalSections(course));
                             System.out.println("The total Number of Sections has been Displayed Successfully....");
-                            System.out.println("Enter 0 for ContextList...");
+                            System.out.println("Enter 0 to return to the main menu...");
                         } else {
-                            System.out.println("The Course is Empty...");
+                            System.out.println("There are no sections in the course. Please add sections to the course first.");
                         }
                     }
                     case 4 -> {
-                        if (!courses.get(0).getSections().isEmpty()) {
-                            courseManagingServices.listSections(courses.get(0));
+                        if (!course.getSections().isEmpty()) {
+                            courseManagementServices.displaySections(course);
                             System.out.print("Enter the Section Number : ");
                             int sectionNumber = scanner.nextInt();
-                            if (sectionNumber <= courses.get(0).getSections().size() && sectionNumber > 0) {
-                                System.out.println("Total Number of Lessons in the Section : " + courseManagingServices.totalLesson(courses.get(0).getSections().get(sectionNumber - 1)));
+                            if (sectionNumber <= course.getSections().size() && sectionNumber > 0) {
+                                System.out.println("Total Number of Lessons in the Section : " + courseManagementServices.getTotalLessons(course.getSections().get(sectionNumber - 1)));
+                                System.out.println("The total Number of Lessons has been Displayed Successfully....");
                             } else {
                                 System.out.println("Please enter the Correct Section Number...");
                             }
-                            System.out.println("The total Number of Lessons has been Displayed Successfully....");
-                            System.out.println("Enter 0 for ContextList...");
+                            System.out.println("Enter 0 to return to the main menu...");
                         } else {
-                            System.out.println("The Course is Empty...");
+                            System.out.println("There are no sections in the course. Please add sections to the course first.");
                         }
                     }
                     case 5 -> {
-                        if (!courses.get(0).getSections().isEmpty()) {
-                            System.out.println(listOfTypes);
-                            System.out.print("Enter the Function in Above Three : ");
-                            int typeInput = scanner.nextInt();
-                            if (typeInput > 0 && typeInput <= 3) {
-                                courseManagingServices.longestSection(courses.get(0), typeInput);
-                                System.out.println("The Longest Section(in terms of Duration) has been Displayed Successfully....");
-                                System.out.println("Enter 0 for ContextList...");
+                        if (!course.getSections().isEmpty()) {
+                            System.out.println(sortingOptions);
+                            System.out.print("Enter the desired option (1-3): ");
+                            int selectedOption = scanner.nextInt();
+                            if (selectedOption > 0 && selectedOption <= 3) {
+                                courseManagementServices.displayLongestSections(course, selectedOption);
+                                System.out.println("The Longest Section has been Displayed Successfully....");
+                                System.out.println("Enter 0 to return to the main menu...");
                             } else {
                                 System.out.println("Enter the Correct Option.");
                             }
                         } else {
-                            System.out.println("The Course is Empty...");
+                            System.out.println("There are no sections in the course. Please add sections to the course first.");
                         }
                     }
                     case 6 -> {
-                        if (!courses.get(0).getSections().isEmpty()) {
-                            System.out.println(listOfTypes);
-                            System.out.print("Enter the Function in Above Three : ");
-                            int typeInput = scanner.nextInt();
-                            if (typeInput > 0 && typeInput <= 3) {
-                                courseManagingServices.smallestSection(courses.get(0), typeInput);
-                                System.out.println("The Smallest Section(in terms of Duration) has been Displayed Successfully....");
-                                System.out.println("Enter 0 for ContextList...");
+                        if (!course.getSections().isEmpty()) {
+                            System.out.println(sortingOptions);
+                            System.out.print("Enter the desired option (1-3): ");
+                            int selectedOption = scanner.nextInt();
+                            if (selectedOption > 0 && selectedOption <= 3) {
+                                courseManagementServices.displaySmallestSections(course, selectedOption);
+                                System.out.println("The Smallest Section has been Displayed Successfully....");
+                                System.out.println("Enter 0 to return to the main menu...");
                             } else {
                                 System.out.println("Enter the Correct Option...");
                             }
                         } else {
-                            System.out.println("The Course is Empty...");
+                            System.out.println("There are no sections in the course. Please add sections to the course first.");
                         }
                     }
                     case 7 -> {
-                        if (!courses.get(0).getSections().isEmpty()) {
-                            System.out.print("Enter a Keyword to Search a Lesson (Single Word) : ");
+                        if (!course.getSections().isEmpty()) {
+                            System.out.print("Enter a Keyword to Search a Lesson : ");
                             String keyWord = scanner.next();
-                            courseManagingServices.lessonNameByKey(courses.get(0), keyWord);
+                            courseManagementServices.searchLessonByKeyword(course.getSections(), keyWord);
                             System.out.println("The Process Completed Successfully....");
-                            System.out.println("Enter 0 for ContextList...");
+                            System.out.println("Enter 0 to return to the main menu...");
                         } else {
-                            System.out.println("The Course is Empty...");
+                            System.out.println("There are no sections in the course. Please add sections to the course first.");
                         }
                     }
                     case 8 -> {
-                        if (!courses.get(0).getSections().isEmpty()) {
-                            courseManagingServices.longestLessons(courses.get(0));
+                        if (!course.getSections().isEmpty()) {
+                            courseManagementServices.displayLongestLessons(course);
                             System.out.println("The Process Completed Successfully....");
-                            System.out.println("Enter 0 for ContextList...");
+                            System.out.println("Enter 0 to return to the main menu...");
                         } else {
-                            System.out.println("The Course is Empty...");
+                            System.out.println("There are no sections in the course. Please add sections to the course first.");
                         }
                     }
                     case 9 -> {
-                        courseManagingServices.listSections(courses.get(0));
-                        System.out.print("Enter the Section Number to add a Lesson : ");
+                        courseManagementServices.displaySections(course);
+                        System.out.print("Enter the Section Number to add new Lesson : ");
                         int sectionNumber = scanner.nextInt();
-                        if (sectionNumber <= courses.get(0).getSections().size() && sectionNumber > 0) {
+                        if (sectionNumber <= course.getSections().size() && sectionNumber > 0) {
                             System.out.print("Enter the name of the Lesson : ");
                             String lessonName = scanner.next();
                             System.out.print("Enter the Type of the Lesson (Code or Video) : ");
@@ -193,11 +194,11 @@ public class CourseManagement {
                                     System.out.print("Enter the Duration of the Lesson(in minutes) : ");
                                     duration = scanner.nextDouble();
                                 }
-                                courseManagingServices.addLesson(courses.get(0).getSections().get(sectionNumber - 1), lessonName, duration, type);
-                                System.out.println("The Lesson Added Successfully....");
-                                System.out.println("Enter 0 for ContextList...");
+                                courseManagementServices.addLesson(course.getSections().get(sectionNumber - 1), lessonName, duration, type);
+                                System.out.println("The Lesson has been added to the section " + course.getSections().get(sectionNumber - 1).getName() + " successfully.");
+                                System.out.println("Enter 0 to return to the main menu...");
                             } else {
-                                System.out.println("Enter Correct Video Type...");
+                                System.out.println("Please enter a correct lesson type (Code or Video).");
                             }
                         } else {
                             System.out.println("Please enter the Correct Section Number...");
@@ -206,51 +207,51 @@ public class CourseManagement {
                     case 10 -> {
                         System.out.print("Enter the Section Name : ");
                         String sectionName = scanner.next();
-                        courseManagingServices.addSection(new Section(sectionName), courses.get(0));
+                        courseManagementServices.addSection(new Section(sectionName), course);
                     }
                     case 11 -> {
-                        if (!courses.get(0).getSections().isEmpty()) {
-                            courseManagingServices.listSections(courses.get(0));
+                        if (!course.getSections().isEmpty()) {
+                            courseManagementServices.displaySections(course);
                             System.out.print("Enter the Section Number to Remove : ");
                             int sectionNumber = scanner.nextInt();
-                            if (sectionNumber <= courses.get(0).getSections().size() && sectionNumber > 0) {
-                                courseManagingServices.removeSection(courses.get(0).getSections().get(sectionNumber - 1), courses.get(0));
+                            if (sectionNumber <= course.getSections().size() && sectionNumber > 0) {
+                                courseManagementServices.removeSection(course.getSections().get(sectionNumber - 1), course);
                             } else {
                                 System.out.println("Please Enter the Valid Section Number...");
                             }
                         } else {
-                            System.out.println("There is no Section to Remove...");
+                            System.out.println("There are no Section to Remove...");
                         }
                     }
                     case 12 -> {
-                        if (!courses.get(0).getSections().isEmpty()) {
-                            courseManagingServices.listSections(courses.get(0));
+                        if (!course.getSections().isEmpty()) {
+                            courseManagementServices.displaySections(course);
                             System.out.print("Enter the Section Number : ");
                             int sectionNumber = scanner.nextInt();
-                            if (sectionNumber <= courses.get(0).getSections().size() && sectionNumber > 0) {
+                            if (sectionNumber <= course.getSections().size() && sectionNumber > 0) {
                                 System.out.print("Enter the New Name of the Section : ");
                                 String newSectionName = scanner.next();
-                                courseManagingServices.editSectionName(courses.get(0).getSections().get(sectionNumber - 1), newSectionName);
+                                courseManagementServices.renameSection(course.getSections().get(sectionNumber - 1), newSectionName);
                                 System.out.println("The Name of the Section Changed Successfully....");
-                                System.out.println("Enter 0 for ContextList...");
+                                System.out.println("Enter 0 to return to the main menu...");
                             } else {
                                 System.out.println("Please enter the Correct Section Number...");
                             }
                         } else {
-                            System.out.println("The Course is Empty...");
+                            System.out.println("There are no sections in the course. Please add sections to the course first.");
                         }
                     }
                     case 13 -> {
                         userInput = false;
-                        writer.write(courses.get(0));
-                        reader.read();
+                        courseFileWriter.write(course);
+                        courseFileReader.read();
                     }
                     default -> System.out.println("Please Enter a Context Number...");
                 }
             } catch (Exception e) {
                 System.out.println("Please enter a valid Input....");
                 scanner.next();
-                System.out.println("Enter 0 for ContextList...");
+                System.out.println("Enter 0 to return to the main menu...");
             }
         }
     }

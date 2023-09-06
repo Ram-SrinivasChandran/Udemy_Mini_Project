@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * This class contains the methods to access for the usage from CourseManagement class
  */
 
-public class CourseManagingServices {
+public class CourseManagementServices {
 
     /**
      * This method accepts two parameters
@@ -22,13 +22,13 @@ public class CourseManagingServices {
      */
     public void addSection(Section section, Course course) {
         List<Section> sections = course.getSections();
-        if (isEqualSection(sections, section)) {
+        if (hasUniqueSectionName(sections, section)) {
             sections.add(section);
             course.setSections(sections);
             System.out.println("The Section Added Successfully to the course " + course.getCourseName());
-            System.out.println("Enter 0 for ContextList...");
+            System.out.println("Enter 0 to return to the main menu...");
         } else {
-            System.out.println("The Section is already Available..");
+            System.out.println("The section already exists in the course...");
         }
     }
 
@@ -55,7 +55,7 @@ public class CourseManagingServices {
         sections.remove(section);
         course.setSections(sections);
         System.out.println("The Section Removed Sucessfully....");
-        System.out.println("Enter 0 for ContextList...");
+        System.out.println("Enter 0 to return to the main menu...");
     }
 
     /**
@@ -66,7 +66,7 @@ public class CourseManagingServices {
      * Returns a boolean value
      * This methods check whether the section is already available or not
      */
-    private boolean isEqualSection(List<Section> sections, Section section) {
+    private boolean hasUniqueSectionName(List<Section> sections, Section section) {
         for (Section object : sections) {
             if (section.getName()
                     .equalsIgnoreCase(object.getName())) {
@@ -81,12 +81,12 @@ public class CourseManagingServices {
      * @param course
      * This method Displays the Section list from the course
      */
-    public void listSections(Course course) {
+    public void displaySections(Course course) {
         List<Section> sections = course.getSections();
         var sectionCount = 1;
-        for (var a :
+        for (var section :
                 sections) {
-            System.out.println("Section " + sectionCount + " : " + a.getName());
+            System.out.println("Section " + sectionCount + " : " + section.getName());
             sectionCount++;
         }
     }
@@ -96,7 +96,7 @@ public class CourseManagingServices {
      * @param course
      * This method Displays the Lesson list from a Particular Section
      */
-    public void listLessons(Course course) {
+    public void displayLessons(Course course) {
         List<Section> sections = course.getSections();
         var sectionCount = 1;
         for (var section :
@@ -123,7 +123,7 @@ public class CourseManagingServices {
      * @return
      * Return the Total count of a section
      */
-    public int totalSection(Course course) {
+    public int getTotalSections(Course course) {
         List<Section> sections = course.getSections();
         return sections.size();
     }
@@ -134,7 +134,7 @@ public class CourseManagingServices {
      * @return
      * Return the Total count of a lesson
      */
-    public int totalLesson(Section section) {
+    public int getTotalLessons(Section section) {
         List<Lesson> lessons = section.getLessons();
         return lessons.size();
     }
@@ -145,7 +145,7 @@ public class CourseManagingServices {
      * @param newSectionName
      * This method replace the Section name with newSectionName
      */
-    public void editSectionName(Section section, String newSectionName) {
+    public void renameSection(Section section, String newSectionName) {
         System.out.println(" ' " + section.getName() + " '  Section Name changed in to  ' " + newSectionName + " ' ");
         section.setName(newSectionName);
     }
@@ -155,7 +155,7 @@ public class CourseManagingServices {
      * @param course
      * Displays the Longest Lesson According to the Duration
      */
-    public void longestLessons(Course course) {
+    public void displayLongestLessons(Course course) {
         List<Section> sections = course.getSections();
         var sectionCount = 1;
         for (var section :
@@ -181,13 +181,13 @@ public class CourseManagingServices {
      * @param course
      * Displays the Longest Section According to the Duration Lesson Count or Coding Lesson Count
      */
-    public void longestSection(Course course, int option) {
+    public void displayLongestSections(Course course, int selectOption) {
         List<Section> sections = course.getSections();
         List<String> sectionNames = new ArrayList<>();
         String longestSectionName = "";
-        switch (option) {
+        switch (selectOption) {
             case 1 -> {
-                double lessonTotalDuration = 0;
+                double lessonTotalDuration = Integer.MIN_VALUE;
                 for (var section :
                         sections) {
                     double durations = 0;
@@ -214,16 +214,16 @@ public class CourseManagingServices {
                 }
             }
             case 2 -> {
-                int lessonCount = 0;
+                int lessonCount = Integer.MIN_VALUE;
                 for (var section :
                         sections) {
-                    if (lessonCount < totalLesson(section)) {
-                        lessonCount = totalLesson(section);
+                    if (lessonCount < getTotalLessons(section)) {
+                        lessonCount = getTotalLessons(section);
                         longestSectionName = section.getName();
                         sectionNames.clear();
                         sectionNames.add(longestSectionName);
-                    } else if (lessonCount == totalLesson(section)) {
-                        lessonCount = totalLesson(section);
+                    } else if (lessonCount == getTotalLessons(section)) {
+                        lessonCount = getTotalLessons(section);
                         longestSectionName = section.getName();
                         sectionNames.add(longestSectionName);
                     }
@@ -235,7 +235,7 @@ public class CourseManagingServices {
                 }
             }
             case 3 -> {
-                long codingLessonCountInSection = 0;
+                long codingLessonCountInSection = Integer.MIN_VALUE;
                 for (var section :
                         sections) {
                     long codingLessonCount = section.getLessons()
@@ -267,7 +267,7 @@ public class CourseManagingServices {
      * @param course
      * Displays the Smallest Section According to the Duration Lesson Count or Coding Lesson Count
      */
-    public void smallestSection(Course course, int option) {
+    public void displaySmallestSections(Course course, int option) {
         List<Section> sections = course.getSections();
         List<String> sectionNames = new ArrayList<>();
       //  String smallestSectionName = "";
@@ -300,12 +300,12 @@ public class CourseManagingServices {
                 int lessonCount = Integer.MAX_VALUE;
                 for (var section :
                         sections) {
-                    if (lessonCount > totalLesson(section)) {
-                        lessonCount = totalLesson(section);
+                    if (lessonCount > getTotalLessons(section)) {
+                        lessonCount = getTotalLessons(section);
                         sectionNames.clear();
                         sectionNames.add(section.getName());
-                    } else if (lessonCount == totalLesson(section)) {
-                        lessonCount = totalLesson(section);
+                    } else if (lessonCount == getTotalLessons(section)) {
+                        lessonCount = getTotalLessons(section);
                         sectionNames.add(section.getName());
                     }
                 }
@@ -349,7 +349,7 @@ public class CourseManagingServices {
      * This method check whether the keyword is contained in the lesson Name
      * Returns a boolean value
      */
-    public boolean isContains(String lessonName, String keyword) {
+    public boolean doesLessonNameContainKeyword(String lessonName, String keyword) {
         String lowerCaseKeyword = keyword.toLowerCase();
         String lowerCaseName = lessonName.toLowerCase();
         return lowerCaseName.contains(lowerCaseKeyword);
@@ -357,19 +357,18 @@ public class CourseManagingServices {
 
     /**
      * This method accepts two Parameters
-     * @param course
+     * @param sections
      * @param keyword
      * This method display a list of Lesson with the given keyword
      */
-    public void lessonNameByKey(Course course, String keyword) {
-        List<Section> sections = course.getSections();
+    public void searchLessonByKeyword(List<Section> sections, String keyword) {
         List<String> lessonNames = new ArrayList<>();
         AtomicInteger count = new AtomicInteger(1);
         sections.forEach(section -> {
             List<Lesson> lessons = section.getLessons();
             lessons.forEach(lesson -> {
                 String name = lesson.name();
-                if (isContains(name, keyword)) {
+                if (doesLessonNameContainKeyword(name, keyword)) {
                     System.out.println(count + ". " + lesson.name() + " (Section : " + section.getName() + ")");
                     count.getAndIncrement();
                     lessonNames.add(lesson.name());
