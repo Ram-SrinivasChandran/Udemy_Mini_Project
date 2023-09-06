@@ -1,8 +1,9 @@
-package Service;
+package Test;
 
 import Entity.Course;
 import Entity.Lesson;
 import Entity.Section;
+import Service.ServiceMethods;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
