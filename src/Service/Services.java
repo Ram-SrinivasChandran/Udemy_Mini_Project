@@ -3,6 +3,7 @@ package Service;
 import Entity.Course;
 import Entity.Lesson;
 import Entity.Section;
+import Utility.Writer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +90,7 @@ public class Services {
             switch (input) {
                 case 0 -> System.out.println(context);
                 case 1 -> {
-                    if(courses.get(0).getSections().size()!=0){
+                    if(!courses.get(0).getSections().isEmpty()){
                         serviceMethods.listSections(courses.get(0));
                         System.out.println("The list of Sections has been Displayed Successfully....");
                         System.out.println("Enter 0 for ContextList...");
@@ -99,7 +100,7 @@ public class Services {
                     }
                 }
                 case 2 -> {
-                    if(courses.get(0).getSections().size()!=0){
+                    if(!courses.get(0).getSections().isEmpty()){
                         serviceMethods.listLessons(courses.get(0));
                         System.out.println("The list of Lessons has been Displayed Successfully....");
                         System.out.println("Enter 0 for ContextList...");
@@ -110,7 +111,7 @@ public class Services {
 
                 }
                 case 3 -> {
-                    if(courses.get(0).getSections().size()!=0){
+                    if(!courses.get(0).getSections().isEmpty()){
                         System.out.println("Total Number of Sections: "+serviceMethods.totalSection(courses.get(0)));
                         System.out.println("The total Number of Sections has been Displayed Successfully....");
                         System.out.println("Enter 0 for ContextList...");
@@ -120,7 +121,7 @@ public class Services {
                     }
                 }
                 case 4 -> {
-                    if(courses.get(0).getSections().size()!=0){
+                    if(!courses.get(0).getSections().isEmpty()){
                         serviceMethods.listSections(courses.get(0));
                         System.out.print("Enter the Section Number : ");
                         int sectionNumber=scanner.nextInt();
@@ -137,7 +138,7 @@ public class Services {
                     }
                 }
                 case 5 -> {
-                    if(courses.get(0).getSections().size()!=0){
+                    if(!courses.get(0).getSections().isEmpty()){
                         System.out.println(listOfTypes);
                         System.out.print("Enter the Function in Above Three : ");
                         int typeInput = scanner.nextInt();
@@ -154,7 +155,7 @@ public class Services {
                     }
                 }
                 case 6 -> {
-                    if(courses.get(0).getSections().size()!=0){
+                    if(!courses.get(0).getSections().isEmpty()){
                         System.out.println(listOfTypes);
                         System.out.print("Enter the Function in Above Three : ");
                         int typeInput = scanner.nextInt();
@@ -171,7 +172,7 @@ public class Services {
                     }
                 }
                 case 7 -> {
-                    if(courses.get(0).getSections().size()!=0){
+                    if(!courses.get(0).getSections().isEmpty()){
                         System.out.print("Enter a Keyword to Search a Lesson (Single Word) : ");
                         String keyWord=scanner.next();
                         serviceMethods.lessonNameByKey(courses.get(0),keyWord);
@@ -183,7 +184,7 @@ public class Services {
                     }
                 }
                 case 8-> {
-                    if(courses.get(0).getSections().size()!=0){
+                    if(!courses.get(0).getSections().isEmpty()){
                         serviceMethods.longestLessons(courses.get(0));
                         System.out.println("The Process Completed Successfully....");
                         System.out.println("Enter 0 for ContextList...");
@@ -223,7 +224,7 @@ public class Services {
                     serviceMethods.addSection(new Section(sectionName),courses.get(0));
                 }
                 case 11 -> {
-                    if(courses.get(0).getSections().size()!=0){
+                    if(!courses.get(0).getSections().isEmpty()){
                         serviceMethods.listSections(courses.get(0));
                         System.out.print("Enter the Section Number to Remove : ");
                         int sectionNumber=scanner.nextInt();
@@ -238,7 +239,7 @@ public class Services {
                     }
                 }
                 case 12 -> {
-                    if(courses.get(0).getSections().size()!=0){
+                    if(!courses.get(0).getSections().isEmpty()){
                         serviceMethods.listSections(courses.get(0));
                         System.out.print("Enter the Section Number : ");
                         int sectionNumber=scanner.nextInt();
@@ -258,6 +259,8 @@ public class Services {
                 }
                 case 13 -> {
                     userInput=false;
+                    Writer writer=new Writer();
+                    writer.write(courses.get(0));
                 }
                 default -> System.out.println("Please Enter a Context Number...");
             }
