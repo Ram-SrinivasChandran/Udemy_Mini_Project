@@ -3,6 +3,10 @@ package Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Course class Contains Name of the Course,Author name,Date Published,Cost of the Course,ID of the Course
+ * It also contains a List of Sections
+ */
 public class Course {
     private String author;
     private String datePublished;

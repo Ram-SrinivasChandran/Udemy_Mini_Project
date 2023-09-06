@@ -8,7 +8,16 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.List;
 
+/**
+ * This CourseFileWriter class is to write the Course List in a file
+ */
+
 public class CourseFileWriter {
+    /**
+     * This write methods contains a course parameter
+     * This method will write the course content in to the file
+     * @param course
+     */
     public void write(Course course) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Java_Course.txt"))) {
             List<Section> sections = course.getSections();

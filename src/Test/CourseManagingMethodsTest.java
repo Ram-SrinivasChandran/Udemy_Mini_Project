@@ -3,16 +3,20 @@ package Test;
 import Entity.Course;
 import Entity.Lesson;
 import Entity.Section;
-import CourseManagementSystem.CourseManagingMethods;
+import Service.CourseManagingServices;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class CourseManagingMethodsTest {
+/**
+ * This class is to Test the Methods which has been written in the CourseManagingServices
+ * Whether the functions are working correctly or not
+ */
+class CourseManagingServicesTest {
 
-    CourseManagingMethods serviceMethods = new CourseManagingMethods();
+    CourseManagingServices courseManagingServices = new CourseManagingServices();
 
     @Test
     void addSection() {
@@ -20,7 +24,7 @@ class CourseManagingMethodsTest {
         Course course1 = new Course("Tim", "05/08/2022", 20.5, 4.5, 1, new ArrayList<>(), "Java Programming Masterclass for Software Developers");
         Section section = new Section("Intro", new ArrayList<>());
         //when
-        serviceMethods.addSection(section, course1);
+        courseManagingServices.addSection(section, course1);
         //then
         //assertion
         Assertions.assertEquals(1, course1.getSections().size());
@@ -34,7 +38,7 @@ class CourseManagingMethodsTest {
         double lessonDuration=12.00;
         String lessonType="Code";
         //when
-        serviceMethods.addLesson(section,lessonName,lessonDuration,lessonType);
+        courseManagingServices.addLesson(section,lessonName,lessonDuration,lessonType);
         //then
         //assertion
         Assertions.assertEquals(lessonName, section.getLessons().get(0).name());
@@ -48,7 +52,7 @@ class CourseManagingMethodsTest {
         sections.add(section);
         Course course1 = new Course("Tim", "05/08/2022", 20.5, 4.5, 1, sections, "Java Programming Masterclass for Software Developers");
         //when
-        serviceMethods.removeSection(section, course1);
+        courseManagingServices.removeSection(section, course1);
         //then
         //assertion
         Assertions.assertEquals(0, course1.getSections().size());
@@ -62,7 +66,7 @@ class CourseManagingMethodsTest {
         sections.add(section);
         Course course1 = new Course("Tim", "05/08/2022", 20.5, 4.5, 1, sections, "Java Programming Masterclass for Software Developers");
         //when
-        serviceMethods.totalSection(course1);
+        courseManagingServices.totalSection(course1);
         //then
         //assertion
         Assertions.assertEquals(1, course1.getSections().size());
@@ -79,7 +83,7 @@ class CourseManagingMethodsTest {
         sections.add(section);
         Course course1 = new Course("Tim", "05/08/2022", 20.5, 4.5, 1, sections, "Java Programming Masterclass for Software Developers");
         //when
-        serviceMethods.totalSection(course1);
+        courseManagingServices.totalSection(course1);
         //then
         //assertion
         Assertions.assertEquals(1, course1.getSections().get(0).getLessons().size());
@@ -90,7 +94,7 @@ class CourseManagingMethodsTest {
         //given
         Section section = new Section("Intro", new ArrayList<>());
         //when
-        serviceMethods.editSectionName(section,"Introduction");
+        courseManagingServices.editSectionName(section,"Introduction");
         //then
         //assertion
         Assertions.assertEquals("Introduction", section.getName());
@@ -101,7 +105,7 @@ class CourseManagingMethodsTest {
         //given
         Lesson lesson=new Lesson("Introduction",12.00,"Code");
         //when
-        boolean contains = serviceMethods.isContains(lesson.name(), "intro");
+        boolean contains = courseManagingServices.isContains(lesson.name(), "intro");
         Assertions.assertTrue(contains);
     }
 }

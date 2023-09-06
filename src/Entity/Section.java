@@ -3,7 +3,10 @@ package Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Section Class contains Section name
+ * It also contains a list of Lessons
+ */
 public class Section{
     private String name;
     private List<Lesson> lessons=new ArrayList<>();

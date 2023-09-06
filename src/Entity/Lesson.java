@@ -1,5 +1,12 @@
 package Entity;
 
+/**
+ * Lesson is a record which contains the parameters to store in the list of Lessons in the Section
+ * @param name
+ * @param duration
+ * @param type
+ */
+
 public record Lesson(String name,double duration,String type) {
     @Override
     public String name() {
