@@ -50,7 +50,7 @@ public class CourseManagement {
     }
 
     /**
-     * This Method has Something which displays in the console
+     * This Method has Menu which displays in the console
      */
     public void service() {
         courses.add(new Course("Tim", "05/08/2022", 20.5, 4.5, 1, initializeSampleCourse(), "Java Programming Masterclass for Software Developers"));
@@ -89,7 +89,7 @@ public class CourseManagement {
                             System.out.println("The list of Sections has been Displayed Successfully....");
                             System.out.println("Enter 0 to return to the main menu...");
                         } else {
-                            System.out.println("The Course is Empty...");
+                            System.out.println("There are no sections in the course. Please add sections to the course first.");
                         }
                     }
                     case 2 -> {
@@ -98,7 +98,7 @@ public class CourseManagement {
                             System.out.println("The list of Lessons has been Displayed Successfully....");
                             System.out.println("Enter 0 to return to the main menu...");
                         } else {
-                            System.out.println("The Course is Empty...");
+                            System.out.println("There are no sections in the course. Please add sections to the course first.");
                         }
 
                     }
